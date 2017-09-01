@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   display: flex;
   flex-direction: column;
 }
@@ -14,16 +13,60 @@
   padding: 20px;
   color: white;
   display: flex;
-  flex-direction: row;
+  flex-direction: row; }
+
+.App-content {
+  display: flex;
+  margin: 50px;
 }
 
-.App-intro {
-  background: rgb(227, 61, 50);
-  font-size: large;
-  color: #FFF;
+.App-impactSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.App-impactHeader {
+  color: #e33d32;
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1.2;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-bottom: 20px;
+}
+
+.App-impactDescription {
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #333;
+}
+
+.App-counterSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.App-callToAction {
+  color: rgb(255, 255, 255);
+  background-color: rgb(227, 61, 50);
+  border-radius: 2px;
+  border: none;
+  text-align: center;
+  height: 39px;
+  color: rgb(255, 255, 255);
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  text-decoration: none;
+  transition: color .1s linear,background-color .1s linear,border-color .1s linear;
+  padding: 10px;
+  align-self: center;
+  display: block;
+}
+
+.App-callToAction:hover {
+  background-color: rgb(178, 38, 29) !important;
+  color: white !important;
 }

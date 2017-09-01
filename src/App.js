@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FlipClock from './FlipClock';
 import './App.css';
 
 class App extends Component {
@@ -9,10 +10,25 @@ class App extends Component {
           <img
             src="http://execonlinenew.wpengine.com/wp-content/uploads/2017/04/EXO_logo_tagline_white_180.png"
             className="App-logo"
+            alt="Logo"
           />
-          {/* <h2>Data Visualization</h2> */}
         </div>
-        <p className="App-intro">Graph!</p>
+        <div className="App-content">
+          <div className="App-impactSection">
+            <p className="App-impactHeader">Real time dollar impact of student projects</p>
+            <p className="App-impactDescription">
+              As part of the curriculum, each student brings a real project to work on during their
+              course. These projects are impactful and generate real monetary value for their
+              companies every second.
+            </p>
+            <FlipClock />
+            <p>
+              <a href="" className="App-callToAction">
+                click here to learn more!
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
