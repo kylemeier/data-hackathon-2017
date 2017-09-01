@@ -32,7 +32,7 @@ class FlipUnitContainer extends React.Component {
     const { digit, shuffle } = this.props;
 
     let now = digit;
-    let before = digit - 3;
+    let before = digit - 13;
     before = parseInt(before, 10) < 0 ? 0 : before;
     before = before.toString(10);
 
@@ -63,19 +63,20 @@ class FlipClock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      million: 869,
+      million: '559',
       millionShuffle: true,
-      thousand: 766,
+      thousand: '000',
       thousandShuffle: true,
-      hundred: 917,
+      hundred: '000',
       hundredShuffle: true,
-      num: 869766917,
+      num: 559000000,
     };
-    //869766917
   }
+
   componentDidMount() {
-    this.timerID = setInterval(() => this.updateTime(), 1000);
+    this.timerID = setInterval(() => this.updateNumber(), 1000);
   }
+
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
@@ -91,51 +92,45 @@ class FlipClock extends React.Component {
     return arrayToParse.slice(start, end).join('');
   }
 
-  updateTime() {
-    const newNum = this.state.num + 3;
+  updateNumber() {
+    const newNum = this.state.num + 13;
     const stateNumArray = this.convertNumToArray(this.state.num);
     const newNumArray = this.convertNumToArray(newNum);
     const newHundred = this.getNumFromArray(newNumArray, newNumArray.length - 3);
-    const stateHundred = this.getNumFromArray(stateNumArray, stateNumArray.length - 3);
 
     const newThousand = this.getNumFromArray(
       newNumArray,
       newNumArray.length - 6,
       newNumArray.length - 3
     );
-    const stateThousand = this.getNumFromArray(
-      stateNumArray,
-      newNumArray.length - 6,
-      stateNumArray.length - 3
-    );
 
     const newMillion = this.getNumFromArray(newNumArray, 0, newNumArray.length - 6);
-    const stateMillion = this.getNumFromArray(stateNumArray, 0, newNumArray.length - 6);
 
-    if (newHundred !== stateHundred) {
+    this.setState({
+      num: newNum,
+    });
+
+    if (newHundred !== this.state.hundred) {
       const hundredShuffle = !this.state.hundredShuffle;
       this.setState({
         hundred: newHundred,
         hundredShuffle,
       });
     }
-    if (newThousand !== stateThousand) {
+    if (newThousand !== this.state.thousand) {
       const thousandShuffle = !this.state.thousandShuffle;
       this.setState({
         thousand: newThousand,
         thousandShuffle,
       });
     }
-    if (newMillion !== stateMillion) {
+    if (newMillion !== this.state.million) {
       const millionShuffle = !this.state.millionShuffle;
       this.setState({
         million: newMillion,
         millionShuffle,
       });
     }
-    this.setState({
-      num: newNum,
-    });
   }
   render() {
     const {
