@@ -6,9 +6,7 @@ class AnimatedCard extends React.Component {
     const { position, digit, animation } = this.props;
     return (
       <div className={`flipCard ${position} ${animation}`}>
-        <span>
-          {digit}
-        </span>
+        <span>{digit}</span>
       </div>
     );
   }
@@ -19,9 +17,7 @@ class StaticCard extends React.Component {
     const { position, digit } = this.props;
     return (
       <div className={position}>
-        <span>
-          {digit}
-        </span>
+        <span>{digit}</span>
       </div>
     );
   }
@@ -62,14 +58,18 @@ class FlipUnitContainer extends React.Component {
 class FlipClock extends React.Component {
   constructor(props) {
     super(props);
+
+    const initialMillion = this.getFromLocalStorage('million') || '559';
+    const initialThousand = this.getFromLocalStorage('thousand') || '000';
+    const initialHundred = this.getFromLocalStorage('hundred') || '000';
     this.state = {
-      million: '559',
+      million: initialMillion,
       millionShuffle: true,
-      thousand: '000',
+      thousand: initialThousand,
       thousandShuffle: true,
-      hundred: '000',
+      hundred: initialHundred,
       hundredShuffle: true,
-      num: 559000000,
+      num: parseInt(`${initialMillion}${initialThousand}${initialHundred}`, 10),
     };
   }
 
@@ -82,9 +82,12 @@ class FlipClock extends React.Component {
   }
 
   convertNumToArray(num) {
-    return num.toString(10).split('').map(function(t) {
-      return parseInt(t, 10);
-    });
+    return num
+      .toString(10)
+      .split('')
+      .map(function(t) {
+        return parseInt(t, 10);
+      });
   }
 
   getNumFromArray(arrayToParse, start, end) {
@@ -116,6 +119,7 @@ class FlipClock extends React.Component {
         hundred: newHundred,
         hundredShuffle,
       });
+      this.setInLocalStorage('hundred', newHundred);
     }
     if (newThousand !== this.state.thousand) {
       const thousandShuffle = !this.state.thousandShuffle;
@@ -123,6 +127,7 @@ class FlipClock extends React.Component {
         thousand: newThousand,
         thousandShuffle,
       });
+      this.setInLocalStorage('thousand', newThousand);
     }
     if (newMillion !== this.state.million) {
       const millionShuffle = !this.state.millionShuffle;
@@ -130,8 +135,18 @@ class FlipClock extends React.Component {
         million: newMillion,
         millionShuffle,
       });
+      this.setInLocalStorage('million', newMillion);
     }
   }
+
+  setInLocalStorage(key, value) {
+    if (window.localStorage) window.localStorage.setItem(key, value);
+  }
+
+  getFromLocalStorage(key) {
+    return window.localStorage ? window.localStorage.getItem(key) : null;
+  }
+
   render() {
     const {
       hundred,

@@ -23,7 +23,7 @@ class App extends Component {
             </p>
             <FlipClock />
             <p>
-              <a href="" className="App-callToAction">
+              <a href="" target="_blank" className="App-callToAction">
                 click here to learn more!
               </a>
             </p>
