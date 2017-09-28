@@ -22,11 +22,6 @@ class App extends Component {
               companies every second.
             </p>
             <FlipClock />
-            <p>
-              <a href="" target="_blank" className="App-callToAction">
-                click here to learn more!
-              </a>
-            </p>
           </div>
         </div>
       </div>

@@ -25,10 +25,10 @@ class StaticCard extends React.Component {
 
 class FlipUnitContainer extends React.Component {
   render() {
-    const { digit, shuffle } = this.props;
-
+    const { digit, shuffle, type } = this.props;
+    const incrementer = type === 'hundred' ? 26.62 : 1;
     let now = digit;
-    let before = digit - 13;
+    let before = Math.round(digit - incrementer);
     before = parseInt(before, 10) < 0 ? 0 : before;
     before = before.toString(10);
 
@@ -58,10 +58,9 @@ class FlipUnitContainer extends React.Component {
 class FlipClock extends React.Component {
   constructor(props) {
     super(props);
-
-    const initialMillion = this.getFromLocalStorage('million') || '559';
+    const initialMillion = this.getFromLocalStorage('million') || '589';
     const initialThousand = this.getFromLocalStorage('thousand') || '000';
-    const initialHundred = this.getFromLocalStorage('hundred') || '000';
+    const initialHundred = this.getFromLocalStorage('hundred') || '815';
     this.state = {
       million: initialMillion,
       millionShuffle: true,
@@ -96,8 +95,7 @@ class FlipClock extends React.Component {
   }
 
   updateNumber() {
-    const newNum = this.state.num + 13;
-    const stateNumArray = this.convertNumToArray(this.state.num);
+    const newNum = Math.round(this.state.num + 26.62);
     const newNumArray = this.convertNumToArray(newNum);
     const newHundred = this.getNumFromArray(newNumArray, newNumArray.length - 3);
 
@@ -159,11 +157,11 @@ class FlipClock extends React.Component {
     return (
       <div className={'flipClock'}>
         <span className="flipClock-text">$</span>
-        <FlipUnitContainer digit={million} shuffle={millionShuffle} />
+        <FlipUnitContainer digit={million} shuffle={millionShuffle} type="million" />
         <span className="flipClock-text">,</span>
-        <FlipUnitContainer digit={thousand} shuffle={thousandShuffle} />
+        <FlipUnitContainer digit={thousand} shuffle={thousandShuffle} type="thousand" />
         <span className="flipClock-text">,</span>
-        <FlipUnitContainer digit={hundred} shuffle={hundredShuffle} />
+        <FlipUnitContainer digit={hundred} shuffle={hundredShuffle} type="hundred" />
       </div>
     );
   }
